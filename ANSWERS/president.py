@@ -74,3 +74,9 @@ class President():
     @property
     def party(self):
         return self._party
+
+if __name__ == "__main__":
+    # not executed when this file is imported
+    p = President(16)
+    print(f"{p.last_name = }")
+    

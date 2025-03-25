@@ -22,7 +22,7 @@ def test_missing_filename():
 def test_list():
     # fail unless values are within 0.000001 of each other
     # (actual result is 0.30000000000000004)
-    assert (.1 + .2) == pytest.approx(.3)
+    assert (.1 + .2) == pytest.approx(.3, .00000000000000001)
  
 
 def test_approximate_pi():
