@@ -7,9 +7,13 @@ with open('omdbapikey.txt') as api_in:
 OMDB_URL = "http://www.omdbapi.com"
 
 def main():
+#    requests.get = my_decorator(requests.Request)
+
+#    requests.Request('get', ...)
+
     requests_params = {'t': 'Black Panther', "apikey": OMDB_API_KEY}
     response = requests.get(OMDB_URL, params=requests_params)
-    if response.status_code == requests.codes.OK:
+    if response.status_code == requests.codes.ok:  # 200
         raw_data = response.json()
 
         print(f"raw_data['Title']: {raw_data['Title']}")
@@ -21,7 +25,7 @@ def main():
         print('-' * 60)
 
         print("raw DATA:")
-        pprint(response.json())
+        pprint(response.json(), sort_dicts=False)
     else:
         print(f"response.status_code: {response.status_code}")
 

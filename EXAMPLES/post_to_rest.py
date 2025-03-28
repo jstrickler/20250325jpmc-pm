@@ -1,4 +1,5 @@
 from datetime import datetime
+from pprint import pprint
 import time
 import requests
 
@@ -15,7 +16,7 @@ for i in range(3):
     )
     if response.status_code in (requests.codes.OK, requests.codes.created):
         print(response.status_code)
-        print(response.text)
+        pprint(response.json())
         print()
         time.sleep(2)
 

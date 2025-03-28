@@ -38,3 +38,18 @@ print()
 
 # get frame (function call stack) info
 print("Current frame:", inspect.getframeinfo(inspect.currentframe()))
+
+def config(**values):
+    for key, value in values.items():
+        print(f"adding {key} with {value} value")
+
+config(filename="foo.txt", user="Bob Smith")
+
+# tag = et.Element('mytag', att="value", thing="value")
+print(f"{inspect.getfile(inspect) = }")
+print(f"{inspect.getfile(geometry) = }")
+
+import re
+
+x = re.search(string="x",pattern="y", flags=re.IGNORECASE)
+

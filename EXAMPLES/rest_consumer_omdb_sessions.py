@@ -18,10 +18,10 @@ MOVIE_TITLES = [
 
 def main():
     with requests.Session() as session:
+        session.headers.update({'X-Python': 'Guido van Rossum'})
         session.params.update({"apikey": OMDB_API_KEY})
         for movie_title in MOVIE_TITLES:
-            params = {'t': movie_title}
-            response = session.get(OMDB_URL, params=params)
+            response = session.get(OMDB_URL, params={'t': movie_title})
             if response.status_code == requests.codes.OK:
                 raw_data = response.json()
                 print(f"raw_data['Title']: {raw_data['Title']}")
