@@ -9,12 +9,16 @@ api = Api(app)
 
 CONN_STR ='sqlite:///presidents.db'
 
+# CONN_STR = postgresql+psycopg://user:password@hostname/database_name
+
 engine = create_engine(CONN_STR, echo=False)
 Base = automap_base()
 Base.prepare(engine)
 
+#           BASE.classes.TABLENAME
 President = Base.classes.presidents
 
+# not intuitive!!
 session_factory = sessionmaker(bind=engine)
 session = scoped_session(session_factory)
 
@@ -26,7 +30,7 @@ president_fields = {
     'party': fields.String,
 }
 
-president_count = len(session.query(President).all())
+president_count = session.query(President).count()
 
 error_data = {'error': 'invalid term number'}
 
@@ -53,8 +57,9 @@ class Presidents(Resource):
         """Retrieve one record"""
         try:
             p = session.query(President).filter(President.termnum == termnum).one()
+            print(session.query(President).filter(President.termnum == termnum))
         except:
-            raise ValueError("Invalid term number")
+            raise InvalidAPIRequest("Invalid term number")
         return p
 
     def put(self, termnum):
@@ -93,12 +98,13 @@ class PresidentsList(Resource):
         party = args.get('party')
 
         if firstname:
+            #  select * from presidents where firstname like %Bush%
             presidents = presidents.filter(President.firstname.like(f"%{firstname}%"))
-        if lastname:
+        elif lastname:
             presidents = presidents.filter(President.lastname.like(f"%{lastname}%"))
-        if birthstate:
+        elif birthstate:
             presidents = presidents.filter(President.birthstate.like(f"%{birthstate}%"))
-        if party:
+        elif party:
             presidents = presidents.filter(President.party.like(f"%{party}%"))
         return presidents.all()
 

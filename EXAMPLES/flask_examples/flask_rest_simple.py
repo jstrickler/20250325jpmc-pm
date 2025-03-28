@@ -1,11 +1,8 @@
 from datetime import date
-from flask import Flask, request, jsonify
-from flask_bootstrap import Bootstrap
-
+from flask import Flask, request, jsonify, make_response
 from president import President
 
 app = Flask(__name__)
-Bootstrap(app)
 
 @app.route('/president/')
 def president_list():

@@ -3,8 +3,8 @@ import psycopg
 pg_conn = psycopg.connect(
     host="localhost",
     dbname="postgres",
-    user="postgres",
-    password='scripts',
+    user="postgres", 
+    password='scripts',  # IRL get from file or environment
 )
 pg_cursor = pg_conn.cursor()
 
